@@ -62,7 +62,8 @@ export async function POST(req: NextRequest) {
         "Content-Disposition": `attachment; filename=converted.${extension}`,
       },
     });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message || "Conversion failed" }, { status: 500 });
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Conversion failed';
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }

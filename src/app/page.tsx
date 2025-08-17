@@ -118,8 +118,8 @@ export default function Home() {
 
       setIsConversionComplete(true);
       showError("Conversion completed successfully!", "success");
-    } catch (err: any) {
-      showError(err.message || "Conversion failed", "error");
+    } catch (err: unknown) {
+      showError(err instanceof Error ? err.message : "Conversion failed", "error");
     } finally {
       setIsConverting(false);
     }
